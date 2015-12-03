@@ -180,10 +180,13 @@ if __name__ == '__main__':
 		cut = cutDendrogram(clusters[0], thresh)
 
 	print minidom.parseString(tree).toprettyxml(indent="   ")
-	print
-	print
+
 	if cut:
-		print cut
+		for c in cut:
+			cDom = createDendrogram(c)
+			print
+			print
+			print minidom.parseString(cDom).toprettyxml(indent="   ")
 
 
 
