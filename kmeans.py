@@ -192,7 +192,7 @@ class Kmeans:
 
 if __name__ == '__main__':
 	# set seed for testing
-	random.seed(1)
+	#random.seed(1)
 
 	if len(sys.argv) != 3:
 		print 'Usage: python kmeans.py <Filename> <k>'
