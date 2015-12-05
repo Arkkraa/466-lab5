@@ -43,6 +43,9 @@ class Cluster:
 	def getPoint(self):
 		return self.point
 
+	def pointToString(self):
+		return ', '.join(str(p) for p in self.point)
+
 
 def euclideanDist(p1, p2):
 	""" Get the Euclidean distance between two clusters """
@@ -110,25 +113,16 @@ def cutDendrogram(cluster, thresh):
 
 	return cut
 
-
-def pointToString(point):
-	string = ''
-
-	for p in point:
-		string += str(p) + ', '
-
-	return string
-
 def buildXML(tree, cluster):
 	if cluster.getPoint():
-		ET.SubElement(tree, 'leaf', {'height': cluster.getHeight(), 'data': pointToString(cluster.getPoint())})
+		ET.SubElement(tree, 'leaf', {'height': cluster.getHeight(), 'data': cluster.pointToString()})
 
 	for child in cluster.getChildren():
 		if not child.getPoint():
 			node = ET.SubElement(tree, 'node', {'height': child.getHeight()})
 			buildXML(node, child)
 		else:
-			ET.SubElement(tree, 'leaf', {'height': child.getHeight(), 'data': pointToString(child.getPoint())})
+			ET.SubElement(tree, 'leaf', {'height': child.getHeight(), 'data': child.pointToString()})
 
 	return tree
 
