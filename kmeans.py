@@ -167,7 +167,7 @@ class Kmeans:
 	def clusterDistances(self, i):
 		"""Return the max, min, and average distance in a cluster"""
 
-		maxDist = None
+		maxDist = 0
 		minDist = None
 		avgDist = 0
 		sumOfSquaredErrors = 0
@@ -176,7 +176,7 @@ class Kmeans:
 		for j in self.clusters[i]: 
 			d = self.distance(self.centroids[i], self.data[j])
 
-			if maxDist == None or d > maxDist:
+			if d > maxDist:
 				maxDist = d;
 
 			if minDist == None or d < minDist:
@@ -185,7 +185,11 @@ class Kmeans:
 			avgDist += d
 			sumOfSquaredErrors += d ** 2
 
-		avgDist /= float(numOfPoints)
+		if numOfPoints == 0:
+			minDist = 0
+			avgDist = 0
+		else:
+			avgDist /= float(numOfPoints)
 
 		return maxDist, minDist, avgDist, sumOfSquaredErrors
 
